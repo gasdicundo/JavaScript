@@ -89,7 +89,7 @@ if (ingreso_usuario === user && ingreso_contraseña === password) {
 
   function comprar_articulos() {
     let total_compra = 0;
-    let lista_articulos = "";
+    let lista_articulos = {};
     let articulo = "";
     do {
       articulo = prompt(
@@ -101,8 +101,12 @@ if (ingreso_usuario === user && ingreso_contraseña === password) {
       switch (articulo) {
         case "1":
           if (arreglo_articulos[0].tieneStock(1)) {
-            lista_articulos += " - Cree Led - $5400" + "<br>";
-            total_compra += 5400;
+            if (lista_articulos.hasOwnProperty("1")) {
+              lista_articulos["1"]++;
+            } else {
+              lista_articulos["1"] = 1;
+            }
+            total_compra += arreglo_articulos[0].getPrecio();
             arreglo_articulos[0].setStock(arreglo_articulos[0].stock - 1);
           } else {
             alert("El producto seleccionado no tiene stock");
@@ -111,8 +115,12 @@ if (ingreso_usuario === user && ingreso_contraseña === password) {
 
         case "2":
           if (arreglo_articulos[1].tieneStock(1)) {
-            lista_articulos += " - Led T10 - $1499" + "<br>";
-            total_compra += 1499;
+            if (lista_articulos.hasOwnProperty("2")) {
+              lista_articulos["2"]++;
+            } else {
+              lista_articulos["2"] = 1;
+            }
+            total_compra += arreglo_articulos[1].getPrecio();
             arreglo_articulos[1].setStock(arreglo_articulos[1].stock - 1);
           } else {
             alert("El producto seleccionado no tiene stock");
@@ -121,8 +129,12 @@ if (ingreso_usuario === user && ingreso_contraseña === password) {
 
         case "3":
           if (arreglo_articulos[2].tieneStock(1)) {
-            lista_articulos += " - Microfibra para secar - $950" + "<br>";
-            total_compra += 950;
+            if (lista_articulos.hasOwnProperty("3")) {
+              lista_articulos["3"]++;
+            } else {
+              lista_articulos["3"] = 1;
+            }
+            total_compra += arreglo_articulos[2].getPrecio();
             arreglo_articulos[2].setStock(arreglo_articulos[2].stock - 1);
           } else {
             alert("El producto seleccionado no tiene stock");
@@ -131,8 +143,12 @@ if (ingreso_usuario === user && ingreso_contraseña === password) {
 
         case "4":
           if (arreglo_articulos[3].tieneStock(1)) {
-            lista_articulos += " - Stereo Pionner - $6500" + "<br>";
-            total_compra += 6500;
+            if (lista_articulos.hasOwnProperty("4")) {
+              lista_articulos["4"]++;
+            } else {
+              lista_articulos["4"] = 1;
+            }
+            total_compra += arreglo_articulos[3].getPrecio();
             arreglo_articulos[3].setStock(arreglo_articulos[3].stock - 1);
           } else {
             alert("El producto seleccionado no tiene stock");
@@ -147,10 +163,13 @@ if (ingreso_usuario === user && ingreso_contraseña === password) {
       }
     } while (articulo != "terminar");
     if (total_compra > 0) {
-      document.write(
-        "Lista de artículos comprados:<br><br>" + lista_articulos + "<br>"
-      );
-      document.write("El total de la compra es: $" + total_compra + "<br><br>");
+      document.write("Lista de artículos comprados:<br><br>");
+      for (let idArticulo in lista_articulos) {
+        let cantidad = lista_articulos[idArticulo];
+        let articulo = arreglo_articulos[idArticulo - 1];
+        document.write(`- ${articulo.descripcion} (Cantidad: ${cantidad}) - $${articulo.getPrecio()} - Subtotal: $${articulo.getPrecio() * cantidad}<br>`);
+      }
+      document.write("<br>El total de la compra es: $" + total_compra + "<br><br>");
     } else {
       document.write("No añadió productos al carro");
     }
@@ -189,4 +208,17 @@ if (ingreso_usuario === user && ingreso_contraseña === password) {
 
     return -1;
   }
-}
+}else {
+    let mensaje = "ingrese correctamente los siguientes datos:";
+  
+    if (ingreso_usuario != user) {
+      mensaje += "\n\n->Usuario";
+    }
+  
+    if (ingreso_contraseña != password) {
+      mensaje += "\n\n->Contraseña";
+    }
+  
+    alert(mensaje);
+  
+  }
