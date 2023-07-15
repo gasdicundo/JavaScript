@@ -8,7 +8,7 @@ let ingreso_usuario = prompt("Ingrese su usuario creado");
 let ingreso_contraseña = prompt("Ingrese su contraseña creada");
 
 if (ingreso_usuario === user && ingreso_contraseña === password) {
-    class articulos {
+  class articulos {
     constructor(id, descripcion, precio, stock) {
       this.id = id;
       this.descripcion = descripcion;
@@ -60,11 +60,11 @@ if (ingreso_usuario === user && ingreso_contraseña === password) {
 
   function mostrarMenu() {
     let respuesta = prompt(
-      "Que accion desea realizar ? \n 1) Ver los articulos \n 2) Comprar articulos \n 3) Actualizar stock \n 4) Ver compra"
+      "¿Qué acción desea realizar?\n1) Ver los artículos\n2) Comprar artículos\n3) Actualizar stock\n4) Ver compra"
     );
 
     if (respuesta == "1") {
-      alert("Los articulos son: " + mostrar_stock());
+      alert("Los artículos son: " + mostrar_stock());
     } else if (respuesta == "2") {
       comprar_articulos();
     } else if (respuesta == "3") {
@@ -72,7 +72,7 @@ if (ingreso_usuario === user && ingreso_contraseña === password) {
     } else if (respuesta == "4") {
       return respuesta;
     } else {
-      alert("Opcion invalida");
+      alert("Opción inválida");
     }
 
     return respuesta;
@@ -93,9 +93,9 @@ if (ingreso_usuario === user && ingreso_contraseña === password) {
     let articulo = "";
     do {
       articulo = prompt(
-        "¿Que desea comprar?" +
+        "¿Qué desea comprar?" +
           mostrar_stock() +
-          " \nEscribir terminar para salir"
+          "\nEscriba 'terminar' para salir"
       );
 
       switch (articulo) {
@@ -143,43 +143,38 @@ if (ingreso_usuario === user && ingreso_contraseña === password) {
           break;
 
         default:
-          alert("articulo no encontrado");
+          alert("Artículo no encontrado");
       }
     } while (articulo != "terminar");
     if (total_compra > 0) {
       document.write(
-        "Lista de articulos comprados : <br> <br>" + lista_articulos + "<br>"
+        "Lista de artículos comprados:<br><br>" + lista_articulos + "<br>"
       );
-      document.write(
-        "El total de la compra es: $" + total_compra + "<br> <br>"
-      );
+      document.write("El total de la compra es: $" + total_compra + "<br><br>");
     } else {
-      document.write("No añadio productos al carro");
+      document.write("No añadió productos al carro");
     }
   }
 
   function actualizar_stock() {
-    let password = prompt("Ingrese contraseña de administrador")
+    let password = prompt("Ingrese contraseña de administrador");
 
-    if (password === "1234"){
-    let articulo = prompt(
-      "Ingrese el articulo a actualizar \n" + mostrar_stock()
-    );
-    let indice = buscar_articulo(articulo);
+    if (password === "1234") {
+      let articulo = prompt("Ingrese el artículo a actualizar\n" + mostrar_stock());
+      let indice = buscar_articulo(articulo);
 
-    if (indice >= 0) {
-      let nuevo_stock = parseInt(
-        prompt("Ingrese un nuevo valor para el stock")
-      );
+      if (indice >= 0) {
+        let nuevo_stock = parseInt(prompt("Ingrese un nuevo valor para el stock"));
 
-      arreglo_articulos[indice].setStock(nuevo_stock);
+        arreglo_articulos[indice].setStock(nuevo_stock);
 
-      alert("Ahora la lista es: \n" + mostrar_stock());
+        alert("Ahora la lista es:\n" + mostrar_stock());
+      } else {
+        alert("No ingresaste un artículo válido");
+      }
     } else {
-      alert("No ingresaste un articulo valido");
+      alert("Usted no tiene acceso a esta función");
     }
-  }else{
-    alert("Usted no tiene acceso a esta funcion")
   }
 
   function buscar_articulo(id) {
@@ -194,5 +189,4 @@ if (ingreso_usuario === user && ingreso_contraseña === password) {
 
     return -1;
   }
-}
 }
