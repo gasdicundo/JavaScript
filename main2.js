@@ -159,7 +159,7 @@ if (ingreso_usuario === user && ingreso_contraseña === password) {
   function actualizar_stock() {
     let password = prompt("Ingrese contraseña de administrador");
 
-    if (password === "1234") {
+    if (password == "1234") {
       let articulo = prompt("Ingrese el artículo a actualizar\n" + mostrar_stock());
       let indice = buscar_articulo(articulo);
 
