@@ -37,6 +37,10 @@ if (ingreso_usuario === user && ingreso_contraseña === password) {
       return this.id;
     }
 
+    getStock() {
+      return this.stock
+    }
+
     setStock(nuevo_stock) {
       this.stock = nuevo_stock;
     }
@@ -47,7 +51,7 @@ if (ingreso_usuario === user && ingreso_contraseña === password) {
   }
 
   let arreglo_articulos = new Array();
-  arreglo_articulos.push(new articulos(1, "Cree led", 5400, 0));
+  arreglo_articulos.push(new articulos(1, "Cree led", 5400, 3));
   arreglo_articulos.push(new articulos(2, "Led T10", 1499, 0));
   arreglo_articulos.push(new articulos(3, "Microfibra de secado", 950, 12));
   arreglo_articulos.push(new articulos(4, "Stereo Pionner", 6500, 20));
@@ -95,7 +99,7 @@ if (ingreso_usuario === user && ingreso_contraseña === password) {
       articulo = prompt(
         "¿Qué desea comprar?" +
           mostrar_stock() +
-          "\nEscriba 'terminar' para salir"
+          "\nEscriba 'OK' para salir"
       );
 
       switch (articulo) {
@@ -155,13 +159,13 @@ if (ingreso_usuario === user && ingreso_contraseña === password) {
           }
           break;
 
-        case "terminar":
+        case "ok":
           break;
 
         default:
           alert("Artículo no encontrado");
       }
-    } while (articulo != "terminar");
+    } while (articulo.toLowerCase() != "ok");
     if (total_compra > 0) {
       document.write("Lista de artículos comprados:<br><br>");
       for (let idArticulo in lista_articulos) {
@@ -208,6 +212,7 @@ if (ingreso_usuario === user && ingreso_contraseña === password) {
 
     return -1;
   }
+
 }else {
     let mensaje = "ingrese correctamente los siguientes datos:";
   
