@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Establecer el nombre de usuario solo si las credenciales son válidas
         localStorage.setItem('nombreUsuario', username);
         
-        window.location.replace('/JavaScript/Proyecto2/index.html');
+        window.location.replace('../../index.html');
       } else {
         loginMessage.innerText = 'Credenciales incorrectas. Inténtalo de nuevo.';
       }

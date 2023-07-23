@@ -73,7 +73,7 @@ cerrarSesionButton.addEventListener('click', function() {
     // Eliminar el nombre de usuario del almacenamiento local
     localStorage.removeItem('nombreUsuario');
     // Redirigir a la página de inicio de sesión u otra página de tu elección
-    window.location.replace('/JavaScript/Proyecto2/index.html');
+    window.location.replace('../../index.html');
 });
 
 
