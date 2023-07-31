@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }).then((result) => {
         if (result.isConfirmed) {
           localStorage.setItem("nombreUsuario", username);
-          window.location.replace("/JavaScript/Proyecto2/index.html");
+          window.location.replace("https://gasdicundo.github.io/JavaScript-DGCars/index.html");
         }
       });
 
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }).then((result) => {
         if (result.isConfirmed) {
           localStorage.setItem("nombreUsuario", username);
-          window.location.replace("/JavaScript/Proyecto2/index.html");
+          window.location.replace("https://gasdicundo.github.io/JavaScript-DGCars/index.html");
         }
       });
 
@@ -62,7 +62,7 @@ btn.addEventListener('click', () => {
   }).then((result) => {
     if (result.isConfirmed) {
       localStorage.setItem("nombreUsuario", username);
-      window.location.replace("/JavaScript/Proyecto2/index.html");
+      window.location.replace("https://gasdicundo.github.io/JavaScript-DGCars/index.html");
     }
   });
 });
