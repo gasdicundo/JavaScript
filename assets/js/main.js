@@ -1,20 +1,27 @@
 
-let carrito = [] ;
-let productos =new Array () ;
+let carrito         = [] ;
+let productos       = [] ;
 
 let gestor ;
-
+const DateTime = luxon.DateTime
+const key_actualizacion = "ultima_actualizacion";
 const key_carrito = "carrito";
+
+const url = './assets/js/productos.json';
+
 
 document.addEventListener("DOMContentLoaded",()=>{
 
-    carrito = JSON.parse(localStorage.getItem(key_carrito)) || [] ;
+    carrito = JSON.parse( localStorage.getItem(key_carrito) ) || [];
 
-    gestor = new GestionarProductos() ;
+    let ingreso = localStorage.getItem(key_actualizacion);
+
+    ingreso ? console.log("Ultimo ingreso" + ingreso) : console.log("no esta registrado el ultimo ingreso");
+
+    gestor = new GestionarProductos();
     gestor.iniciar();
-
-
 })
+
 
 
 
@@ -74,10 +81,7 @@ cerrarSesionButton.addEventListener('click', function() {
     // window.location.replace('/JavaScript/Proyecto2/index.html');
 });
 
-/**
- * 
- * @param {*} id
- */
+
 
 function addCarrito(id){
 
@@ -93,10 +97,7 @@ function addCarrito(id){
 
 }
 
-/**
- * 
- * @param {*} id
- */
+
 function eliminar(id){
     gestor.eliminarProducto(id);
 }
@@ -115,4 +116,7 @@ alertCerrarSesion.addEventListener('click', function() {
         window.location.replace("https://gasdicundo.github.io/JavaScript-DGCars/");
     }
   });
+
+  
 })}
+

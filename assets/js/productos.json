@@ -1,0 +1,93 @@
+{
+    "productos": [
+        {
+          "id": 1,
+          "nombre": "Cree Led H7",
+          "descripcion": "22.000 lumens por lámpara",
+          "precio": 5400,
+          "stock": 50,
+          "img": "CreeLed.jpg",
+          "destacado": 25,
+          "carrito": "Agregar al carrito",
+          "categoria": "accesorios"
+        },
+        {
+          "id": 2,
+          "nombre": "Led T10",
+          "descripcion": "Canbus Plano Sin Polaridad Np",
+          "precio": 1499,
+          "stock": 10,
+          "img": "LedT10.jpg",
+          "destacado": 1,
+          "carrito": "Agregar al carrito",
+          "categoria": "accesorios"
+        },
+  
+        {
+          "id": 3,
+          "nombre": "Paño de Microfibra",
+          "descripcion": "2 En 1 Secado 30x30cm Detail Auto",
+          "precio": 1100,
+          "stock": 150,
+          "img": "Microfibra.jpg",
+          "destacado": 0,
+          "carrito": "Agregar al carrito",
+          "categoria": "lavado"
+        },
+        {
+          "id": 4,
+          "nombre": "Stereo Pioneer",
+          "descripcion": "MVH S215BT con USB y bluetooth",
+          "precio": 32500,
+          "stock": 10,
+          "img": "StereoPioneer.jpg",
+          "destacado": 1,
+          "carrito": "Agregar al carrito",
+          "categoria": "accesorios"
+        },
+        {
+          "id": 5,
+          "nombre": "Mini tacho de basura",
+          "descripcion": "Oregon Universal Con Tapa P/autos",
+          "precio": 1300,
+          "stock": 20,
+          "img": "minitacho.jpg",
+          "destacado": 1,
+          "carrito": "Agregar al carrito",
+          "categoria": "accesorios"
+        },
+        {
+          "id": 6,
+          "nombre": "Moldura a Presión",
+          "descripcion": "Autos Tuning X4 Mts Fucsia Fluor",
+          "precio": 1200,
+          "stock": 5,
+          "img": "MolduraAPresion.jpg",
+          "destacado": 0,
+          "carrito": "Agregar al carrito",
+          "categoria": "accesorios"
+        },
+        {
+          "id": 7,
+          "nombre": "Arrancador Auto",
+          "descripcion": "T242 Arrancamotor Portatil Vehiculo 20000mah",
+          "precio": 79700,
+          "stock": 3,
+          "img": "ArrancadorDeAuto.jpg",
+          "destacado": 1,
+          "carrito": "Agregar al carrito",
+          "categoria": "mecanica"
+        },
+        {
+          "id": 8,
+          "nombre": "Aromatizante Route 66",
+          "descripcion": "Frutos Rojos - Route 66",
+          "precio": 999,
+          "stock": 50,
+          "img": "Route66.jpg",
+          "destacado": 0,
+          "carrito": "Agregar al carrito",
+          "categoria": "accesorios"
+        }
+      ]
+}

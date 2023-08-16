@@ -1,95 +1,26 @@
 class GestionarProductos {
   iniciar() {
-    productos = [
-      {
-        "id": 1,
-        "nombre": "Cree Led H7",
-        "descripcion": "22.000 lumens por lámpara",
-        "precio": 5400,
-        "stock": 50,
-        "img": "CreeLed.jpg",
-        "destacado": 25,
-        "carrito": "Agregar al carrito",
-      },
-      {
-        "id": 2,
-        "nombre": "Led T10",
-        "descripcion": "Canbus Plano Sin Polaridad Np",
-        "precio": 1499,
-        "stock": 10,
-        "img": "LedT10.jpg",
-        "destacado": 1,
-        "carrito": "Agregar al carrito",
-      },
 
-      {
-        "id": 3,
-        "nombre": "Paño de Microfibra",
-        "descripcion": "2 En 1 Secado 30x30cm Detail Auto",
-        "precio": 1100,
-        "stock": 150,
-        "img": "Microfibra.jpg",
-        "destacado": 0,
-        "carrito": "Agregar al carrito",
-      },
-      {
-        "id": 4,
-        "nombre": "Stereo Pioneer",
-        "descripcion": "MVH S215BT con USB y bluetooth",
-        "precio": 32500,
-        "stock": 10,
-        "img": "StereoPioneer.jpg",
-        "destacado": 1,
-        "carrito": "Agregar al carrito",
-      },
-      {
-        "id": 5,
-        "nombre": "Mini tacho de basura",
-        "descripcion": "Oregon Universal Con Tapa P/autos",
-        "precio": 1300,
-        "stock": 20,
-        "img": "minitacho.jpg",
-        "destacado": 1,
-        "carrito": "Agregar al carrito",
-      },
-      {
-        "id": 6,
-        "nombre": "Moldura a Presión",
-        "descripcion": "Autos Tuning X4 Mts Fucsia Fluor",
-        "precio": 1200,
-        "stock": 5,
-        "img": "MolduraAPresion.jpg",
-        "destacado": 0,
-        "carrito": "Agregar al carrito",
-      },
-      {
-        "id": 7,
-        "nombre": "Arrancador Auto",
-        "descripcion": "T242 Arrancamotor Portatil Vehiculo 20000mah",
-        "precio": 79700,
-        "stock": 3,
-        "img": "ArrancadorDeAuto.jpg",
-        "destacado": 1,
-        "carrito": "Agregar al carrito",
-      },
-      {
-        "id": 8,
-        "nombre": "Aromatizante Route 66",
-        "descripcion": "Frutos Rojos - Route 66",
-        "precio": 999,
-        "stock": 50,
-        "img": "Route66.jpg",
-        "destacado": 0,
-        "carrito": "Agregar al carrito",
-      },
-    ];
-    
+    fetch(url)
 
-    let productosDestacados = productos.filter((prod) => prod.destacado == 1);
+    .then (respuesta => respuesta.json())
+    .then (resultado =>{
+
+        productos = resultado.productos;
+
+      let productosDestacados = productos.filter( prod => prod.destacado == 1);
    
 
     this.cargarProductos(productosDestacados);
-  }
+  })
+
+    
+
+    this.mostrarCarrito();
+        
+    this.actualizarContador();
+  
+}
 
   cargarProductos(productos) {
     const divProductos = document.querySelector("#productos");
@@ -99,21 +30,17 @@ class GestionarProductos {
       this.mostrarHeader("No se han encontrado productos");
       return false;
     } else {
-      productos.forEach((producto) => {
-        /*let id = producto.id;
-        let nombre = producto.nombre;
-        let img = producto.img;
-        let descripcion = producto.descripcion;
-        let precio = producto.precio;
-        let carrito = producto.carrito;
-        let stock = producto.stock;*/
 
-        const {id,nombre,img,descripcion,precio,carrito,stock} = producto
+      
+      productos.forEach((producto) => {
+       
+
+        const {id,nombre,img,descripcion,precio,carrito,stock,categoria} = producto
 
         let carritoBtnText = stock > 0 ? "Agregar al carrito" : "Sin stock";
         let carritoBtnDisabled = stock === 0 ? "disabled" : "";
         let prod = document.createElement("div");
-        prod.classList.add("col-12","h200","border","bg-white","rounded","mt-3","d-flex","align-items-center","p-3","flex-row","producto");
+        prod.classList.add("col-12","h200","border","mt-3","d-flex","align-items-center","p-3","flex-row","producto","cards");
         prod.id = "row_"+id;
         prod.innerHTML = `<div class="w-20">
                                         <img src="./assets/img/${img}" alt="" width="150" height="150" >
@@ -123,8 +50,9 @@ class GestionarProductos {
                                     <h3>${nombre}</h3>            
                                     <p>${descripcion.substring(0,120)}</p>
                                     <p class="precio">$${precio}</p>             
-                                  </div>
-                                  <div>
+                                    </div>
+                                    <div>
+                                  
                                    <p class="stock">Stock: ${stock} unidades</p> 
                                    <a href="javascript:addCarrito(${id})" class="button-carrito btn btn-primary d-flex justify-content-center" ${carritoBtnDisabled}>${carritoBtnText}</a>
                                    
@@ -158,7 +86,7 @@ class GestionarProductos {
     if (existe){
 
 
-        //mapeo el producto con el id pasado por parametro con su cantidad actualizada
+        
         const articulo = carrito.map(producto=>{
 
             if (producto.id === item.id){
@@ -210,10 +138,6 @@ class GestionarProductos {
 
 }
 
-
-/**
-* Actualiza contado de carrito, muestra el estado correcto del carrito y guarda en local storage
-*/
 actualizarCarrito(){
 
     this.actualizarContador();
@@ -223,13 +147,6 @@ actualizarCarrito(){
 
 
 }
-
-guardarCarrito(){
-
-    //desarrollar
-
-}
-
 
 mostrarCarrito(){
 
@@ -274,7 +191,7 @@ mostrarCarrito(){
 
 
 
-           detalleCarrito.append(row);         
+           detalleCarrito.appendChild(row);         
 
     })
 
@@ -345,7 +262,7 @@ eliminarProducto(id){
             carrito=carrito.filter(articulo => articulo.id != id);
             this.actualizarCarrito();
 
-            //notidico de la eliminacion
+            
             Toastify({
 
                 text : "Producto eliminado con exito",
@@ -355,14 +272,70 @@ eliminarProducto(id){
            }).showToast();
 
         }
+        
 
 
     })
+    
 
 
 
 }
 
+guardarCarrito() { 
+       
+  localStorage.setItem(key_carrito, JSON.stringify( carrito ));
+  const dt = DateTime.now();
+  let date =  dt.toLocaleString();       
+  localStorage.setItem(key_actualizacion,date);
+
+}
+
+categoria(categoriaSeleccionada) {
+
+  const productosFiltrados = productos.filter(prod => prod.categoria === categoriaSeleccionada);
+
+  this.cargarProductos(productosFiltrados);
+}
+
+gestionarProductos(){
+
+  this.cargarProductos(productos)
+}
+
+
 
 
 }
+
+const gestionarProductos = new GestionarProductos();
+
+
+const accesoriosButton = document.getElementById("accesoriosButton");
+accesoriosButton.addEventListener("click", () => {
+  const categoriaSeleccionada = "accesorios"; 
+  gestionarProductos.categoria(categoriaSeleccionada);
+});
+
+
+const lavadoButton = document.getElementById("lavadoButton");
+lavadoButton.addEventListener("click", () => {
+  const categoriaSeleccionada = "lavado"; 
+  gestionarProductos.categoria(categoriaSeleccionada);
+});
+
+const mecanicaButton = document.getElementById("mecanicaButton");
+mecanicaButton.addEventListener("click", () => {
+  const categoriaSeleccionada = "mecanica"; 
+  gestionarProductos.categoria(categoriaSeleccionada);
+});
+
+const todosButton = document.getElementById("todosButton");
+todosButton.addEventListener("click", () => {
+  gestionarProductos.gestionarProductos();
+});
+
+
+
+
+
