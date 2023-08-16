@@ -1,26 +1,21 @@
 class GestionarProductos {
   iniciar() {
-
     fetch(url)
-
-    .then (respuesta => respuesta.json())
-    .then (resultado =>{
-
+      .then((respuesta) => respuesta.json())
+      .then((resultado) => {
         productos = resultado.productos;
 
-      let productosDestacados = productos.filter( prod => prod.destacado == 1);
-   
+        let productosDestacados = productos.filter(
+          (prod) => prod.destacado == 1
+        );
 
-    this.cargarProductos(productosDestacados);
-  })
-
-    
+        this.cargarProductos(productosDestacados);
+      });
 
     this.mostrarCarrito();
-        
+
     this.actualizarContador();
-  
-}
+  }
 
   cargarProductos(productos) {
     const divProductos = document.querySelector("#productos");
@@ -30,25 +25,41 @@ class GestionarProductos {
       this.mostrarHeader("No se han encontrado productos");
       return false;
     } else {
-
-      
       productos.forEach((producto) => {
-       
-
-        const {id,nombre,img,descripcion,precio,carrito,stock,categoria} = producto
+        const {
+          id,
+          nombre,
+          img,
+          descripcion,
+          precio,
+          carrito,
+          stock,
+          categoria,
+        } = producto;
 
         let carritoBtnText = stock > 0 ? "Agregar al carrito" : "Sin stock";
         let carritoBtnDisabled = stock === 0 ? "disabled" : "";
         let prod = document.createElement("div");
-        prod.classList.add("col-12","h200","border","mt-3","d-flex","align-items-center","p-3","flex-row","producto","cards");
-        prod.id = "row_"+id;
+        prod.classList.add(
+          "col-12",
+          "h200",
+          "border",
+          "mt-3",
+          "d-flex",
+          "align-items-center",
+          "p-3",
+          "flex-row",
+          "producto",
+          "cards"
+        );
+        prod.id = "row_" + id;
         prod.innerHTML = `<div class="w-20">
                                         <img src="./assets/img/${img}" alt="" width="150" height="150" >
                                   </div>
 
                                   <div class="p-3 d-flex flex-column w-60 h-150">
                                     <h3>${nombre}</h3>            
-                                    <p>${descripcion.substring(0,120)}</p>
+                                    <p>${descripcion.substring(0, 120)}</p>
                                     <p class="precio">$${precio}</p>             
                                     </div>
                                     <div>
@@ -78,92 +89,57 @@ class GestionarProductos {
     this.cargarProductos(resultado);
   }
 
-  addCart(item){
+  addCart(item) {
+    const existe = carrito.some((producto) => producto.id === item.id);
 
+    if (existe) {
+      const articulo = carrito.map((producto) => {
+        if (producto.id === item.id) {
+          producto.cantidad++;
+          return producto;
+        } else {
+          return producto;
+        }
+      });
 
-    const existe = carrito.some(producto => producto.id === item.id) ;
+      Toastify({
+        text: "Producto agregado con exito",
+        duration: 2000,
+        gravity: "bottom",
+      }).showToast();
+    } else {
+      carrito.push(item);
 
-    if (existe){
-
-
-        
-        const articulo = carrito.map(producto=>{
-
-            if (producto.id === item.id){
-
-
-                producto.cantidad++;
-                return producto;
-
-            }else{
-
-                return producto ;
-
-            }
-
-
-        })
-
-        Toastify({
-
-            text : "Producto agregado con exito",
-            duration: 2000 ,
-            gravity: "bottom"
-
-       }).showToast();
-       
-
-    }else{
-
-
-        carrito.push(item);
-
-        Toastify({
-
-            text : "Producto agregado con exito",
-            duration: 2000 ,
-            gravity: "bottom"
-
-       }).showToast();
-
-
+      Toastify({
+        text: "Producto agregado con exito",
+        duration: 2000,
+        gravity: "bottom",
+      }).showToast();
     }
 
-
     this.actualizarCarrito();
+  }
 
-
-
-
-
-}
-
-actualizarCarrito(){
-
+  actualizarCarrito() {
     this.actualizarContador();
     this.mostrarCarrito();
 
     this.guardarCarrito();
+  }
 
-
-}
-
-mostrarCarrito(){
-
+  mostrarCarrito() {
     let detalleCarrito = document.querySelector("#idCarrito");
-    detalleCarrito.innerHTML = "" ;
-    let total = 0 ;
+    detalleCarrito.innerHTML = "";
+    let total = 0;
 
-    carrito.forEach ((producto) =>{
+    carrito.forEach((producto) => {
+      const { id, nombre, precio, img, cantidad } = producto;
 
+      const row = document.createElement("div");
+      row.classList.add("row");
+      total += parseInt(precio) * cantidad;
 
-        const { id, nombre, precio, img, cantidad  } = producto;
-
-        const row = document.createElement("div");
-        row.classList.add("row");
-        total += parseInt(precio) * cantidad;
-
-        row.innerHTML= `
+      row.innerHTML = `
                     <div class="col-3 d-flex align-items-center p-2 border-bottom">
                         <img src="${img}" width="80"/>
                     </div>
@@ -189,13 +165,10 @@ mostrarCarrito(){
         
                     `;
 
+      detalleCarrito.appendChild(row);
+    });
 
-
-           detalleCarrito.appendChild(row);         
-
-    })
-
-    let row =document.createElement ("div");
+    let row = document.createElement("div");
     row.classList.add("row");
 
     row.innerHTML = `
@@ -206,127 +179,86 @@ mostrarCarrito(){
                     <b> $ ${total}</b>
                 </div>
                 
-                `;      
-                    
+                `;
 
-     detalleCarrito.appendChild(row);               
+    detalleCarrito.appendChild(row);
+  }
 
-
-}
-
-
-
-actualizarContador(){
-
+  actualizarContador() {
     let totalCarrito = this.contarProductos();
 
     let countCarrito = document.querySelector("#badgeCarrito");
     countCarrito.innerHTML = totalCarrito;
+  }
 
-}
+  contarProductos() {
+    let contarProductos = 0;
 
-contarProductos(){
+    carrito.forEach((producto) => {
+      contarProductos = contarProductos + parseInt(producto.cantidad);
+    });
 
-    let contarProductos = 0 ;
+    return contarProductos;
+  }
 
-    carrito.forEach ((producto) =>{
-
-        contarProductos = contarProductos + parseInt(producto.cantidad);
-
-    })
-
-
-    return contarProductos ;
-
-
-}
-
-
-eliminarProducto(id){
-
-
-    //si confima proceso a eliminar
+  eliminarProducto(id) {
     Swal.fire({
+      title: "¿Desde eliminar este articulo?",
+      showCancelButton: true,
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Eliminar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        carrito = carrito.filter((articulo) => articulo.id != id);
+        this.actualizarCarrito();
 
-        title : "¿Desde eliminar este articulo?" ,
-        showCancelButton : true ,
-        cancelButtonColor : '#d33' ,
-        confirmButtonText : "Eliminar",
-        cancelButtonText : "Cancelar",
+        Toastify({
+          text: "Producto eliminado con exito",
+          duration: 2000,
+          gravity: "bottom",
+        }).showToast();
+      }
+    });
+  }
 
-    }).then ((result) =>{
+  guardarCarrito() {
+    localStorage.setItem(key_carrito, JSON.stringify(carrito));
+    const dt = DateTime.now();
+    let date = dt.toLocaleString();
+    localStorage.setItem(key_actualizacion, date);
+  }
 
+  categoria(categoriaSeleccionada) {
+    const productosFiltrados = productos.filter(
+      (prod) => prod.categoria === categoriaSeleccionada
+    );
 
-        if (result.isConfirmed){
+    this.cargarProductos(productosFiltrados);
+  }
 
-            carrito=carrito.filter(articulo => articulo.id != id);
-            this.actualizarCarrito();
-
-            
-            Toastify({
-
-                text : "Producto eliminado con exito",
-                duration: 2000 ,
-                gravity: "bottom"
-
-           }).showToast();
-
-        }
-        
-
-
-    })
-    
-
-
-
-}
-
-guardarCarrito() { 
-       
-  localStorage.setItem(key_carrito, JSON.stringify( carrito ));
-  const dt = DateTime.now();
-  let date =  dt.toLocaleString();       
-  localStorage.setItem(key_actualizacion,date);
-
-}
-
-categoria(categoriaSeleccionada) {
-
-  const productosFiltrados = productos.filter(prod => prod.categoria === categoriaSeleccionada);
-
-  this.cargarProductos(productosFiltrados);
-}
-
-gestionarProductos(){
-
-  this.cargarProductos(productos)
-}
-
-
-
-
+  gestionarProductos() {
+    this.cargarProductos(productos);
+  }
 }
 
 const gestionarProductos = new GestionarProductos();
 
-
 const accesoriosButton = document.getElementById("accesoriosButton");
 accesoriosButton.addEventListener("click", () => {
-  const categoriaSeleccionada = "accesorios"; 
+  const categoriaSeleccionada = "accesorios";
   gestionarProductos.categoria(categoriaSeleccionada);
 });
 
-
 const lavadoButton = document.getElementById("lavadoButton");
 lavadoButton.addEventListener("click", () => {
-  const categoriaSeleccionada = "lavado"; 
+  const categoriaSeleccionada = "lavado";
   gestionarProductos.categoria(categoriaSeleccionada);
 });
 
 const mecanicaButton = document.getElementById("mecanicaButton");
 mecanicaButton.addEventListener("click", () => {
-  const categoriaSeleccionada = "mecanica"; 
+  const categoriaSeleccionada = "mecanica";
   gestionarProductos.categoria(categoriaSeleccionada);
 });
 
@@ -334,8 +266,3 @@ const todosButton = document.getElementById("todosButton");
 todosButton.addEventListener("click", () => {
   gestionarProductos.gestionarProductos();
 });
-
-
-
-
-

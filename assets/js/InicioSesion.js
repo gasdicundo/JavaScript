@@ -3,7 +3,6 @@ const pass1 = "gaston";
 const user2 = "caropianelli";
 const pass2 = "carolina";
 
-
 document.addEventListener("DOMContentLoaded", function () {
   const loginForm = document.getElementById("login-form");
   const loginMessage = document.getElementById("login-message");
@@ -16,56 +15,56 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (username === user1 && password === pass1) {
       Swal.fire({
-        title: 'Inicio exitoso!',
-        text: 'Tu inicio de sesión ha sido exitoso',
-        icon: 'success',
-        confirmButtonText: 'Continuar'
+        title: "Inicio exitoso!",
+        text: "Tu inicio de sesión ha sido exitoso",
+        icon: "success",
+        confirmButtonText: "Continuar",
       }).then((result) => {
         if (result.isConfirmed) {
           localStorage.setItem("nombreUsuario", username);
-          window.location.replace("https://gasdicundo.github.io/JavaScript-DGCars/");
+          window.location.replace(
+            "https://gasdicundo.github.io/JavaScript-DGCars/"
+          );
         }
       });
-
     } else if (username === user2 && password === pass2) {
       Swal.fire({
-        title: 'Inicio exitoso!',
-        text: 'Tu inicio de sesión ha sido exitoso',
-        icon: 'success',
-        confirmButtonText: 'Continuar'
+        title: "Inicio exitoso!",
+        text: "Tu inicio de sesión ha sido exitoso",
+        icon: "success",
+        confirmButtonText: "Continuar",
       }).then((result) => {
         if (result.isConfirmed) {
           localStorage.setItem("nombreUsuario", username);
-          window.location.replace("https://gasdicundo.github.io/JavaScript-DGCars/");
+          window.location.replace(
+            "https://gasdicundo.github.io/JavaScript-DGCars/"
+          );
         }
       });
-
     } else {
       Swal.fire({
-        title: 'Inicio denegado!',
-        text: 'Credenciales incorrectas. Inténtalo de nuevo',
-        icon: 'error',
-        confirmButtonText: 'Continuar'
-      })
-      // loginMessage.innerText = "Credenciales incorrectas. Inténtalo de nuevo.";
+        title: "Inicio denegado!",
+        text: "Credenciales incorrectas. Inténtalo de nuevo",
+        icon: "error",
+        confirmButtonText: "Continuar",
+      });
     }
   });
 });
 
-const btn = document.querySelector('#boton-inicio')
-btn.addEventListener('click', () => {
+const btn = document.querySelector("#boton-inicio");
+btn.addEventListener("click", () => {
   Swal.fire({
-    title: 'Inicio exitoso!',
-    text: 'Tu inicio de sesión ha sido exitoso',
-    icon: 'success',
-    confirmButtonText: 'Continuar'
+    title: "Inicio exitoso!",
+    text: "Tu inicio de sesión ha sido exitoso",
+    icon: "success",
+    confirmButtonText: "Continuar",
   }).then((result) => {
     if (result.isConfirmed) {
       localStorage.setItem("nombreUsuario", username);
-      window.location.replace("https://gasdicundo.github.io/JavaScript-DGCars/");
+      window.location.replace(
+        "https://gasdicundo.github.io/JavaScript-DGCars/"
+      );
     }
   });
 });
-
-
-
